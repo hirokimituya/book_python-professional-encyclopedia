@@ -70,11 +70,18 @@ Do you like it? [y/n]
         """
         for restaurant in restaurants:
             contents: str = self.recommend_template.substitute(restaurant=restaurant)
-            answer: str = input(contents).lower()
 
-            # レストランが好きと返ってきたらおすすめの表示を終了
+            while True:
+                answer: str = input(contents).lower()
+
+                # レストランが好きと返ってきたらおすすめの表示を終了
+                if answer in ('yes', 'y', 'no', 'n'):
+                    break
+
             if answer in ('yes', 'y'):
                 break
+
+
 
 
 
