@@ -4,5 +4,7 @@ import logtest
 
 logging.basicConfig(level=logging.INFO)
 
-logging.info('info')
+logger = logging.getLogger(__name__)
+logger.info('from main')
+
 logtest.do_something()

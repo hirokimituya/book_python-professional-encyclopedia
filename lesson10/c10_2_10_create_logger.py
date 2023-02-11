@@ -1,6 +1,7 @@
 import logging
 
-formatter = '%(asctime)s: [%(levelname)s] - %(filename)s - %(message)s'
-logging.basicConfig(level=logging.INFO, format=formatter)
+logging.basicConfig(level=logging.INFO)
 
-logging.info('info %s %s', 'test', 'test2')
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+logger.debug('debug')

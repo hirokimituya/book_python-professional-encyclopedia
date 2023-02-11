@@ -1,7 +1,8 @@
 import logging
 
+import logtest
+
 logging.basicConfig(level=logging.INFO)
 
-logger = logging.getLogger('main')
-logger.setLevel(logging.DEBUG)
-logger.debug('debug')
+logging.info('info')
+logtest.do_something()
