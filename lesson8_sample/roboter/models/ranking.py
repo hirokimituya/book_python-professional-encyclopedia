@@ -4,8 +4,13 @@ TODO (jsakai) Rewrite to DB instead of CSV
 """
 import collections
 import csv
+import logging
 import os
 import pathlib
+
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 
 RANKING_COLUMN_NAME = 'NAME'
@@ -64,6 +69,11 @@ class RankingModel(CsvModel):
     def save(self):
         """Save data to csv file."""
         # TODO (jsakai) Use locking mechanism for avoiding dead lock issue
+        logger.info({
+            'action': 'save',
+            'csv_file': self.csv_file,
+            'status': 'run'
+        })
         with open(self.csv_file, 'w+') as csv_file:
             writer = csv.DictWriter(csv_file, fieldnames=self.column)
             writer.writeheader()
@@ -73,6 +83,12 @@ class RankingModel(CsvModel):
                     RANKING_COLUMN_NAME: name,
                     RANKING_COLUMN_COUNT: count
                 })
+
+        logger.info({
+            'action': 'save',
+            'csv_file': self.csv_file,
+            'status': 'success'
+        })
 
     def get_most_popular(self, not_list=None):
         """Fetch the data of the top ranking.
