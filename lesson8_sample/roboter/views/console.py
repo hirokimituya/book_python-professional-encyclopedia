@@ -1,9 +1,12 @@
 """Utils to display to be returned to the user on the console."""
+import logging
 import os
 import string
 
 import termcolor
 
+
+logger = logging.getLogger(__name__)
 
 def get_template_dir_path():
     """Return the path of the template's directory.
@@ -42,6 +45,11 @@ def find_template(temp_file):
     template_dir_path = get_template_dir_path()
     temp_file_path = os.path.join(template_dir_path, temp_file)
     if not os.path.exists(temp_file_path):
+        logger.critical({
+            'action': 'read',
+            'status': 'fail',
+            'message': 'temp file does not exist'
+        })
         raise NoTemplateError('Could not find {}'.format(temp_file))
     return temp_file_path
 
